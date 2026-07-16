@@ -444,11 +444,25 @@ The combination of a larger synthetic dataset and increased augmentation diversi
 
 ---
 
-## Current Status
+## Results
 
 Experiments 1–3 above establish that foundation vision models (OpenCLIP ViT-B/32 with a frozen backbone + LoRA) are highly effective for this task, and that dataset scale + augmentation diversity matter more than raw augmentation volume alone.
 
-The planned next step — comparing additional backbone architectures (DINOv2, SigLIP, MobileNetV3, EfficientNetV2, ConvNeXt V2, and a from-scratch ResNet-18 baseline) under the identical protocol — is now implemented as section 10 of `finetune_openclip_lora.ipynb`. A DINOv2 checkpoint trained this way is already published (see [Dataset & Pretrained Checkpoints](#dataset--pretrained-checkpoints)); full comparative results across all backbones will be added here as those runs complete.
+The planned next step — comparing additional backbone architectures (DINOv2, SigLIP, MobileNetV3, EfficientNetV2, ConvNeXt V2, and a from-scratch ResNet-18 baseline) under the identical protocol — is now implemented as section 10 of `finetune_openclip_lora.ipynb`. A DINOv2 checkpoint trained this way is already published (see [Dataset & Pretrained Checkpoints](#dataset--pretrained-checkpoints)); full comparative results across all backbones are in the table below.
+
+### Full Results
+
+Test-set metrics, every backbone:
+
+| Backbone | Adaptation | F1 (Macro) | mAP (Macro) | Subset Accuracy | Trainable Params |
+|---|---|---:|---:|---:|---:|
+| DINOv2 ViT-B/14 | Frozen + LoRA + head | 0.864 | 0.908 | 0.833 | 1.58% |
+| SigLIP ViT-B/16 | Frozen + LoRA + head | 0.856 | 0.882 | 0.750 | 1.42% |
+| OpenCLIP ViT-B/32 ★ (baseline) | Frozen + LoRA + head | 0.800 | 0.857 | 0.750 | 0.67% |
+| ConvNeXt V2-Tiny | Frozen + head | 0.635 | 0.706 | 0.500 | 0.71% |
+| ResNet-18 | From scratch | 0.444 | 0.436 | 0.375 | 100% |
+| EfficientNetV2-S | Frozen + head | 0.392 | 0.514 | 0.083 | 1.61% |
+| MobileNetV3-Large | Frozen + head | 0.354 | 0.414 | 0.125 | 7.70% |
 
 ---
 
